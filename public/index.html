@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Document</title>
+</head>
+<body>
+
+<form class="form-box" id="rsvpForm">
+    <label for="name">Skriv in ditt namn:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <div class="checkbox-group">
+
+      <label><input type="checkbox" id="coming"> Kommer</label>
+      <label><input type="checkbox" id="notComing"> Kommer inte</label>
+
+    </div>
+
+    <button type="submit" class="submit-btn">✔</button>
+  </form>
+
+  <div class="blur" id="blur"></div>
+
+    <main>
+    <section class="section1">
+        <div class="food"></div>
+        <div class="cross">
+            <section>
+                <hr class="redline1">
+                <hr class="redline2">
+            </section>
+            
+            <h2>Champagnefrukost</h2>
+        </div>
+
+        <h1>StudentFörfest</h1>
+        <hr class="line">
+        
+    </section>
+
+    <section class="section2">
+        <div class="box">
+            <div class="box1">
+                <h2>Förfest för lilla Amus</h2>
+                <h2>heeheehee</h2>
+                <h2>heeeheee</h2>
+                <h2>heee</h2>
+            </div>
+            
+        </div>
+
+        <div class="box">
+            <div id="post"></div>
+            
+            <div class="sect">
+                <div class="box2">
+                    <section><h2>Andreas Larsson</h2><hr class="underline"/></section>
+                    <section><h2>Ekhagsgatan 37</h2> <hr class="underline"/></section>
+                    <section><h2>06:00</h2><hr class="underline"/></section>            
+                </div>
+                
+                <div id="world"></div>
+            </div>
+        </div>
+    </section>
+    </main>
+    
+
+    <script src="../client.js"></script>
+</body>
+</html>
