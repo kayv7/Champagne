@@ -23,6 +23,7 @@ document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
     return;
   }
 
+  // Step 1: Check if the name is on the invited list
   const { data: invitedData, error: invitedError } = await client
     .from('Invited')
     .select('name')
@@ -40,14 +41,32 @@ document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
 
   const guestName = invitedData[0].name;
 
+  // ✅ Step 2: Check if the guest already RSVP'd
+  const { data: existingRSVP, error: checkError } = await client
+    .from('Handler')
+    .select('name')
+    .ilike('name', guestName);
+
+    console.log(existingRSVP)
+  if (checkError) {
+    alert("Fel vid kontroll av RSVP-status: " + checkError.message);
+    return;
+  }
+
+  if (existingRSVP.length > 0) {
+    alert("Du har redan RSVP:at. Tack!");
+    return;
+  }
+
+  // ✅ Step 3: Insert RSVP
   const { error: insertError } = await client
-    .from('InviteHandler')
+    .from('Handler')
     .insert([{ name: guestName, status: rsvp }]);
 
   if (insertError) {
     alert("Ett fel uppstod: " + insertError.message);
   } else {
-    alert(`Tack ${guestName}! Din RSVP har sparats som "${rsvp}".`);
+    alert(`Tack ${guestName}! Din RSVP har sparats som "${rsvp ? "Kommer" : "Kommer inte"}".`);
     document.getElementById('rsvpForm').style.display = "none";
     document.getElementById('blur').style.display = "none";
   }
