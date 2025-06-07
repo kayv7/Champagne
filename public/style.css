@@ -4,7 +4,7 @@ body{
     margin: 0;
     height:100vh;
     width: 100%;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 main{
     display: flex;
@@ -334,12 +334,6 @@ main{
     margin: 2vh auto;
   }
 
-  .box1 {
-    width: 80vw;
-    margin-left: auto;
-    margin-right: auto;
-   
-  }
 
   #post {
     width: 34vw;
@@ -369,18 +363,6 @@ main{
     border-top: 0.5vw dotted rgba(255, 255, 255, 0.457);
   }
 
-  .form-box {
-  width: 80vw;
-  padding: 5vh 5vw;
-  margin: 0;
-  margin: 10vh;
-  margin-left: 10vw;
-  border-radius: 4vw;
-  position: fixed;
-  z-index: 3;
-  box-sizing: border-box;
-}
-
 .blur{
     overflow-y:scroll;
     height: 110vh;
@@ -390,16 +372,57 @@ main{
       margin-left: -3vw;
 }
 
-.box2{
-  margin-top: 1vh;
-}
-.box3{
-  margin: 0;
+
+#bs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+.box1, .box3 {
+  width: 90%;
+  margin-left: 0;
+  align-items: center;
 }
 
-.box3 button{
-  margin-top: 25vh;
-}
+    .box1 h2 {
+        font-size: 16px;
+        margin: 1vh 0;
+        text-align: center;
+    }
+
+    .box3 {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2vh;
+    }
+
+    .boxes {
+        gap: 10px;
+        margin: 0;
+        align-items: center;
+    }
+
+    .box3 button {
+      margin-bottom: 5vh;
+    }
+    .form-box {
+        width: 80vw;
+        margin: 10vh auto;
+        padding: 5vh;
+    }
+
+    .box2{
+      margin-top: 9vh;
+    }
+
+    #world{
+      padding-bottom: 5vh;
+    }
+
+    .food{
+      padding: auto;
+    }
 } 
 
 
