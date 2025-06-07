@@ -12,16 +12,17 @@ notComing.addEventListener('change', () => {
   if (notComing.checked) coming.checked = false;
 });
 
+let guestName
+let StatusInput
+
+
+
 document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const nameInput = document.getElementById('name').value.trim();
-  const rsvp = coming.checked ? true : notComing.checked ? false : null;
 
-  if (rsvp === null) {
-    alert("Vänligen välj om du kommer eller inte.");
-    return;
-  }
+
 
   // Step 1: Check if the name is on the invited list
   const { data: invitedData, error: invitedError } = await client
@@ -35,11 +36,16 @@ document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
   }
 
   if (invitedData.length === 0) {
-    alert("Namnet finns inte på inbjudningslistan.");
     return;
   }
 
-  const guestName = invitedData[0].name;
+  if(invitedData.length > 0){
+    document.getElementById('rsvpForm').style.display = "none";
+    document.getElementById('blur').style.display = "none";
+  }
+
+  guestName = invitedData[0].name;
+
 
   // ✅ Step 2: Check if the guest already RSVP'd
   const { data: existingRSVP, error: checkError } = await client
@@ -48,17 +54,26 @@ document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
     .ilike('name', guestName);
 
     console.log(existingRSVP)
-  if (checkError) {
-    alert("Fel vid kontroll av RSVP-status: " + checkError.message);
+
+  if (existingRSVP.length === 0) {
+    document.getElementById('election').style.display = "flex";
     return;
   }
 
-  if (existingRSVP.length > 0) {
-    alert("Du har redan RSVP:at. Tack!");
-    return;
-  }
+});
 
+
+document.getElementById('election').addEventListener('submit', async (e) => {
+  e.preventDefault();
   // ✅ Step 3: Insert RSVP
+  const rsvp = coming.checked ? true : notComing.checked ? false : null;
+
+    if (rsvp === null) {
+    alert("Vänligen välj om du kommer eller inte.");
+    return;
+  }
+
+  
   const { error: insertError } = await client
     .from('Handler')
     .insert([{ name: guestName, status: rsvp }]);
@@ -66,8 +81,8 @@ document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
   if (insertError) {
     alert("Ett fel uppstod: " + insertError.message);
   } else {
-    alert(`Tack ${guestName}! Din RSVP har sparats som "${rsvp ? "Kommer" : "Kommer inte"}".`);
-    document.getElementById('rsvpForm').style.display = "none";
-    document.getElementById('blur').style.display = "none";
+    alert(`Tack ${guestName}, för ditt svar!`);
   }
+
+  
 });
